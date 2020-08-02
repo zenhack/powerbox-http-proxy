@@ -9,10 +9,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-const webSocketListenAddr = ":3000"
-
 var (
-	proxyListenAddr = ":" + os.Getenv("POWERBOX_PROXY_PORT")
+	webSocketListenAddr = ":" + os.Getenv("POWERBOX_WEBSOCKET_PORT")
+	proxyListenAddr     = ":" + os.Getenv("POWERBOX_PROXY_PORT")
 
 	caCertFile = os.Getenv("CA_CERT_PATH")
 
