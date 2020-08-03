@@ -49,6 +49,8 @@ The daemon is mainly configured through environment variables:
 - `CA_CERT_PATH` is the path to which the daemon should write its root
   certificate. Configure your application to trust the cert written
   to this location.
+- `DB_TYPE`: The type of the database to use. Right now the only
+  supported value is `mysql`.
 - `DB_URI`: The location of a mysql database in which to store the
   daemon's private data. See
   <https://github.com/go-sql-driver/mysql#dsn-data-source-name> for

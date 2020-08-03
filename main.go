@@ -15,7 +15,8 @@ var (
 
 	caCertFile = os.Getenv("CA_CERT_PATH")
 
-	mysqlUri = os.Getenv("DB_URI")
+	dbType = os.Getenv("DB_TYPE")
+	dbUri  = os.Getenv("DB_URI")
 )
 
 func chkfatal(err error) {
@@ -38,7 +39,7 @@ func main() {
 		}))
 	}()
 
-	db, err := sql.Open("mysql", mysqlUri)
+	db, err := sql.Open(dbType, mysqlUri)
 	chkfatal(err)
 	storage, err := NewStorage(db)
 	chkfatal(err)
