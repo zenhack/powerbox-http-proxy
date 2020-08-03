@@ -39,7 +39,7 @@ func main() {
 		}))
 	}()
 
-	db, err := sql.Open(dbType, mysqlUri)
+	db, err := sql.Open(dbType, dbUri)
 	chkfatal(err)
 	storage, err := NewStorage(db)
 	chkfatal(err)
