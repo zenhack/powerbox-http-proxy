@@ -15,9 +15,7 @@ var (
 
 	caCertFile = os.Getenv("CA_CERT_PATH")
 
-	mysqlUser = os.Getenv("MYSQL_USER")
-	mysqlDb   = os.Getenv("MYSQL_DATABASE")
-	mysqlUri  = mysqlUser + "@/" + mysqlDb
+	mysqlUri = os.Getenv("DB_URI")
 )
 
 func chkfatal(err error) {
