@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"encoding/pem"
+	"log"
 	"net/http"
 	"os"
 
@@ -10,14 +11,23 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// Get the named enviornment variable, aborting with an error if it is undefined.
+func mustGetenv(name string) string {
+	value := os.Getenv(name)
+	if value == "" {
+		log.Fatalf("Error: environment variable %q is not defined.", name)
+	}
+	return value
+}
+
 var (
-	webSocketListenAddr = ":" + os.Getenv("POWERBOX_WEBSOCKET_PORT")
-	proxyListenAddr     = ":" + os.Getenv("POWERBOX_PROXY_PORT")
+	webSocketListenAddr = ":" + mustGetenv("POWERBOX_WEBSOCKET_PORT")
+	proxyListenAddr     = ":" + mustGetenv("POWERBOX_PROXY_PORT")
 
-	caCertFile = os.Getenv("CA_CERT_PATH")
+	caCertFile = mustGetenv("CA_CERT_PATH")
 
-	dbType = os.Getenv("DB_TYPE")
-	dbUri  = os.Getenv("DB_URI")
+	dbType = mustGetenv("DB_TYPE")
+	dbUri  = mustGetenv("DB_URI")
 )
 
 func chkfatal(err error) {
