@@ -1,11 +1,8 @@
 `powerbox-http-proxy` is a daemon that is sometimes helpful for
 porting legacy applications that want HTTP access to [Sandstorm][1]. It
 acts as an HTTP proxy, and makes powerbox requests on-demand for domains
-that the legacy application tries to access.
-
-# Overview
-
-TODO
+that the legacy application tries to access. It is used by the [Tiny
+Tiny RSS Port](https://github.com/zenhack/ttrss-sandstorm)
 
 # Building
 
