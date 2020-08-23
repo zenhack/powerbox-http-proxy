@@ -42,6 +42,9 @@ func GenCA() (CA, error) {
 		},
 
 		IsCA: true,
+		BasicConstraintsValid: true,
+		KeyUsage: x509.KeyUsageCertSign,
+
 	}
 	data, err := x509.CreateCertificate(nil, cert, cert, key.Public, key.Private)
 	if err != nil {
