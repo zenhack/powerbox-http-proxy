@@ -40,6 +40,8 @@ func GenCA() (CA, error) {
 			CommonName:   "Sandstorm TLS Spoofer CA",
 			SerialNumber: "1212121",
 		},
+
+		IsCA: true,
 	}
 	data, err := x509.CreateCertificate(nil, cert, cert, key.Public, key.Private)
 	if err != nil {
