@@ -167,7 +167,7 @@ func (pr PowerboxRequester) run() {
 			// request will just time out.
 			send := func(index int, conn *powerboxConn) {
 				err := conn.wsConn.WriteJSON(req)
-				if err == nil {
+				if err != nil {
 					log.Printf("Error sending to client #%v: %v ", index, err)
 				}
 			}
