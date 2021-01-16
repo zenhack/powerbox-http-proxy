@@ -180,21 +180,31 @@ func (s Server) ProxyHandler() http.Handler {
 	})
 }
 
-func (s Server) getTransportFor(url string) (http.RoundTripper, error) {
+func (s Server) getTokenFor(url string) (string, error) {
 	token, err := s.storage.GetTokenFor(url)
 	if err != nil {
 		token, err = s.requestTokenFor(url)
 		if err != nil {
-			return nil, err
+			return "", err
 		}
 		err = s.storage.SetTokenFor(url, token)
 		if err != nil {
-			return nil, err
+			return "", err
 		}
 	}
-	return tokenRoundTripper{
+	return token, err
+}
+
+func (s Server) getTransportFor(url string) (http.RoundTripper, error) {
+	token, err := s.getTokenFor(url)
+	if err != nil {
+		return nil, err
+	}
+	return &tokenRoundTripper{
 		token:      token,
 		underlying: http.DefaultTransport,
+		url:        url,
+		server:     s,
 	}, nil
 }
 

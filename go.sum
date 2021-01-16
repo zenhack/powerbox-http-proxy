@@ -20,5 +20,6 @@ golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 zenhack.net/go/sandstorm v0.0.0-20200222051010-915f0237fe55 h1:lAQ9zC9Ql7fSXhV4BkEeV9d7HfHT8eVOii6+GlogQyY=
 zenhack.net/go/sandstorm v0.0.0-20200222051010-915f0237fe55/go.mod h1:nctDv1C0fmgzAe0M/DtptBA/Ug5hSK6MEMkRHExJCNo=
+zenhack.net/go/sandstorm v0.0.0-20200807223653-d169734aeb58 h1:PWPdDTpQ68cvdNQG9sN09ewwZFFW29oUPKsf/nUaR30=
 zombiezen.com/go/capnproto2 v2.17.1-0.20180404044107-e89f9b7f0213+incompatible h1:roPDgwVyDDB1/qOcpbXnow3TaR8W8If716DPLOcu4T8=
 zombiezen.com/go/capnproto2 v2.17.1-0.20180404044107-e89f9b7f0213+incompatible/go.mod h1:XO5Pr2SbXgqZwn0m0Ru54QBqpOf4K5AYBO+8LAOBQEQ=

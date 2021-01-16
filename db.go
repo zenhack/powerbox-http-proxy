@@ -40,3 +40,11 @@ func (s Storage) SetTokenFor(url, token string) error {
 	)
 	return err
 }
+
+func (s Storage) DeleteToken(token string) error {
+	_, err := s.db.Exec(
+		`DELETE FROM powerbox_proxy_tokens WHERE token = ?`,
+		token,
+	)
+	return err
+}
