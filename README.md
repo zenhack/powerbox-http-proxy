@@ -42,7 +42,17 @@ The daemon is mainly configured through environment variables:
   those variables.
 - `POWERBOX_WEBSOCKET_PORT` specifies the port to listen on for connections
   from the JavaScript helper. You will want to configure your web server
-  to point requests to `/_sandstorm/websocket` to this port.
+  to point requests to `/_sandstorm/websocket` to this port. For example,
+  for nginx, assuming `POWERBOX_WEBSOCKE_PORT` is `3000`, you can use:  
+
+        location /_sandstorm/websocket {
+          proxy_pass http://127.0.0.1:3000;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "Upgrade";
+          proxy_set_header Host $host;
+        }        
+        
 - `CA_CERT_PATH` is the path to which the daemon should write its root
   certificate. Configure your application to trust the cert written
   to this location.
