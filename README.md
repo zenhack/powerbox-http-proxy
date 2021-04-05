@@ -43,7 +43,7 @@ The daemon is mainly configured through environment variables:
 - `POWERBOX_WEBSOCKET_PORT` specifies the port to listen on for connections
   from the JavaScript helper. You will want to configure your web server
   to point requests to `/_sandstorm/websocket` to this port. For example,
-  for nginx, assuming `POWERBOX_WEBSOCKE_PORT` is `3000`, you can use:  
+  for nginx, assuming `POWERBOX_WEBSOCKET_PORT` is `3000`, you can use:  
 
         location /_sandstorm/websocket {
           proxy_pass http://127.0.0.1:3000;
