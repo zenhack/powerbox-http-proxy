@@ -54,17 +54,17 @@ func (tr *tokenRoundTripper) tryRefreshToken(ctx context.Context) bool {
 		return false
 	}
 
-	err = tr.server.storage.DeleteToken(tr.token)
-	if err != nil {
-		log.Print("powerbox-http-proxy: Failed to delete token: ", err)
-		return false
-	}
-	token, err := tr.server.getTokenFor(tr.url)
+	token, err := tr.server.requestTokenFor(tr.url)
 	if err != nil {
 		return false
 	}
 	tr.token = token
-	return true
+	err = tr.server.storage.SetTokenFor(tr.url, tr.token)
+	if err == nil {
+		return true
+	}
+	log.Print("Failed to set new token: ", err)
+	return false
 }
 
 func isValidToken(ctx context.Context, token string) (bool, error) {

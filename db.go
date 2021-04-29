@@ -33,18 +33,26 @@ func (s Storage) GetTokenFor(url string) (token string, err error) {
 }
 
 func (s Storage) SetTokenFor(url, token string) error {
-	_, err := s.db.Exec(
+	tx, err := s.db.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback() // Will no-op if we've already comitted.
+	_, err = tx.Exec(
+		`DELETE FROM powerbox_proxy_tokens
+		WHERE url = ?`,
+		url,
+	)
+	if err != nil {
+		return err
+	}
+	_, err = tx.Exec(
 		`INSERT INTO powerbox_proxy_tokens(url, token)
 		VALUES (?, ?)`,
 		url, token,
 	)
-	return err
-}
-
-func (s Storage) DeleteToken(token string) error {
-	_, err := s.db.Exec(
-		`DELETE FROM powerbox_proxy_tokens WHERE token = ?`,
-		token,
-	)
+	if err == nil {
+		err = tx.Commit()
+	}
 	return err
 }
