@@ -1,9 +1,9 @@
-function getWebSocketUrl(): string {
+function getWebSocketUrl() {
   const protocol = window.location.protocol.replace('http', 'ws');
   return protocol + "//" + window.location.host + "/_sandstorm/websocket";
 }
 
-function connectWebSocket(): void {
+function connectWebSocket() {
   console.log("Connecting to websocket.")
   const socket = new WebSocket(getWebSocketUrl());
   socket.onmessage = (event) => {
