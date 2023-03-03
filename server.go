@@ -11,10 +11,11 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"sync"
 
 	"github.com/gorilla/websocket"
 
-	"zombiezen.com/go/capnproto2"
+	capnp "zombiezen.com/go/capnproto2"
 
 	"zenhack.net/go/sandstorm/capnp/apisession"
 	"zenhack.net/go/sandstorm/capnp/powerbox"
@@ -22,9 +23,10 @@ import (
 
 func NewServer(storage Storage, spoofer *CertSpoofer) Server {
 	return Server{
-		storage: storage,
-		spoofer: spoofer,
-		pr:      NewPowerboxRequester(),
+		storage:   storage,
+		spoofer:   spoofer,
+		pr:        NewPowerboxRequester(),
+		tokenLock: &sync.Mutex{},
 	}
 }
 
@@ -32,6 +34,9 @@ type Server struct {
 	storage Storage
 	spoofer *CertSpoofer
 	pr      *PowerboxRequester
+
+	// Used by getTokenFor
+	tokenLock *sync.Mutex
 }
 
 func (s Server) handleConnect(w http.ResponseWriter, req *http.Request) {
@@ -181,6 +186,8 @@ func (s Server) ProxyHandler() http.Handler {
 }
 
 func (s Server) getTokenFor(url string) (string, error) {
+	s.tokenLock.Lock()
+	defer s.tokenLock.Unlock()
 	token, err := s.storage.GetTokenFor(url)
 	if err != nil {
 		token, err = s.requestTokenFor(url)
